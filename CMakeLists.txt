@@ -1,9 +1,14 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.20)
+project(nginx)
+
 include_directories(
 		.
 		src/core src/event src/event/modules / src/os/unix objs src/http src/http/modules
 		/opt/homebrew/Cellar/pcre2/10.43/include
+		/opt/homebrew/Cellar/pcre2/10.44/include
 )
+
+
 set(SOURCE_FILES
     objs/ngx_modules.c
     src/core/nginx.c 
@@ -125,5 +130,11 @@ set(SOURCE_FILES
 	src/http/modules/ngx_http_upstream_random_module.c 
 	src/http/modules/ngx_http_upstream_keepalive_module.c 
 	src/http/modules/ngx_http_upstream_zone_module.c)
+
+
 add_executable(nginx ${SOURCE_FILES})
-target_link_libraries(nginx -L/opt/homebrew/Cellar/pcre2/10.43/lib pcre2-8 z)
+
+
+target_link_libraries(nginx -L/opt/homebrew/Cellar/pcre2/10.44/lib pcre2-8 z)
+
+

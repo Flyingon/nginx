@@ -106,7 +106,7 @@ checking for atomic(3)
 objs/autotest.c:8:24: warning: 'OSAtomicCompareAndSwap32Barrier' is deprecated: first deprecated in macOS 10.12 - Use atomic_compare_exchange_strong() from <stdatomic.h> instead [-Wdeprecated-declarations]
                   if (!OSAtomicCompareAndSwap32Barrier(0, 1, &lock)) return 1;
                        ^
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/OSAtomicDeprecated.h:519:9: note: 'OSAtomicCompareAndSwap32Barrier' has been explicitly marked deprecated here
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/OSAtomicDeprecated.h:520:9: note: 'OSAtomicCompareAndSwap32Barrier' has been explicitly marked deprecated here
 bool    OSAtomicCompareAndSwap32Barrier( int32_t __oldValue, int32_t __newValue, volatile int32_t *__theValue );
         ^
 1 warning generated.
@@ -648,7 +648,7 @@ objs/autotest.c:7:5: error: call to undeclared function 'accept4'; ISO C99 and l
     accept4(0, NULL, NULL, SOCK_NONBLOCK);
     ^
 objs/autotest.c:7:5: note: did you mean 'accept'?
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:724:9: note: 'accept' declared here
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:720:9: note: 'accept' declared here
 int     accept(int, struct sockaddr * __restrict, socklen_t * __restrict)
         ^
 objs/autotest.c:7:28: error: use of undeclared identifier 'SOCK_NONBLOCK'
@@ -782,10 +782,10 @@ checking for strerrordesc_np()
 objs/autotest.c:7:18: error: call to undeclared function 'strerrordesc_np'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
     char *p; p = strerrordesc_np(0);
                  ^
-objs/autotest.c:7:16: warning: incompatible integer to pointer conversion assigning to 'char *' from 'int' [-Wint-conversion]
+objs/autotest.c:7:16: error: incompatible integer to pointer conversion assigning to 'char *' from 'int' [-Wint-conversion]
     char *p; p = strerrordesc_np(0);
                ^ ~~~~~~~~~~~~~~~~~~
-1 warning and 1 error generated.
+2 errors generated.
 ----------
 
 #include <sys/types.h>
@@ -863,7 +863,7 @@ objs/autotest.c:8:23: warning: 'sem_init' is deprecated [-Wdeprecated-declaratio
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:55:42: note: 'sem_init' has been explicitly marked deprecated here
 int sem_init(sem_t *, int, unsigned int) __deprecated;
                                          ^
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:211:40: note: expanded from macro '__deprecated'
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
 #define __deprecated    __attribute__((__deprecated__))
                                        ^
 objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declarations]
@@ -872,7 +872,7 @@ objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declara
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:53:26: note: 'sem_destroy' has been explicitly marked deprecated here
 int sem_destroy(sem_t *) __deprecated;
                          ^
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:211:40: note: expanded from macro '__deprecated'
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
 #define __deprecated    __attribute__((__deprecated__))
                                        ^
 2 warnings generated.
@@ -886,7 +886,7 @@ objs/autotest.c:8:23: warning: 'sem_init' is deprecated [-Wdeprecated-declaratio
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:55:42: note: 'sem_init' has been explicitly marked deprecated here
 int sem_init(sem_t *, int, unsigned int) __deprecated;
                                          ^
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:211:40: note: expanded from macro '__deprecated'
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
 #define __deprecated    __attribute__((__deprecated__))
                                        ^
 objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declarations]
@@ -895,7 +895,7 @@ objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declara
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:53:26: note: 'sem_destroy' has been explicitly marked deprecated here
 int sem_destroy(sem_t *) __deprecated;
                          ^
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:211:40: note: expanded from macro '__deprecated'
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
 #define __deprecated    __attribute__((__deprecated__))
                                        ^
 2 warnings generated.
@@ -909,7 +909,7 @@ objs/autotest.c:8:23: warning: 'sem_init' is deprecated [-Wdeprecated-declaratio
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:55:42: note: 'sem_init' has been explicitly marked deprecated here
 int sem_init(sem_t *, int, unsigned int) __deprecated;
                                          ^
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:211:40: note: expanded from macro '__deprecated'
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
 #define __deprecated    __attribute__((__deprecated__))
                                        ^
 objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declarations]
@@ -918,7 +918,7 @@ objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declara
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:53:26: note: 'sem_destroy' has been explicitly marked deprecated here
 int sem_destroy(sem_t *) __deprecated;
                          ^
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:211:40: note: expanded from macro '__deprecated'
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
 #define __deprecated    __attribute__((__deprecated__))
                                        ^
 2 warnings generated.
@@ -1025,7 +1025,7 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c -lpcre2-8
 ----------
 
 ----------------------------------------
-checking for PCRE2 library in /opt/homebrew/Cellar/pcre2/10.43
+checking for PCRE2 library in /opt/homebrew/Cellar/pcre2/10.44
 
 
 ----------------------------------------

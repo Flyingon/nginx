@@ -1,7 +1,7 @@
-#define NGX_CONFIGURE " --prefix=/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file"
+#define NGX_CONFIGURE " --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file"
 
 #ifndef NGX_COMPILER
-#define NGX_COMPILER  "clang 15.0.0 (clang-1500.1.0.2.5)"
+#define NGX_COMPILER  "clang 15.0.0 (clang-1500.3.9.4)"
 #endif
 
 
@@ -324,7 +324,7 @@
 
 
 #ifndef NGX_PREFIX
-#define NGX_PREFIX  "/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/"
+#define NGX_PREFIX  "/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/"
 #endif
 
 

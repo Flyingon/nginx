@@ -10,7 +10,7 @@ ALL_INCS = -I src/core \
 	-I src/event/modules \
 	-I src/event/quic \
 	-I src/os/unix \
-	-I /opt/homebrew/Cellar/pcre2/10.43/include \
+	-I /opt/homebrew/Cellar/pcre2/10.44/include \
 	-I objs \
 	-I src/http \
 	-I src/http/modules
@@ -85,7 +85,7 @@ CORE_INCS = -I src/core \
 	-I src/event/modules \
 	-I src/event/quic \
 	-I src/os/unix \
-	-I /opt/homebrew/Cellar/pcre2/10.43/include \
+	-I /opt/homebrew/Cellar/pcre2/10.44/include \
 	-I objs
 
 
@@ -351,7 +351,7 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/http/modules/ngx_http_upstream_keepalive_module.o \
 	objs/src/http/modules/ngx_http_upstream_zone_module.o \
 	objs/ngx_modules.o \
-	-L/opt/homebrew/Cellar/pcre2/10.43/lib -lpcre2-8 -lz
+	-L/opt/homebrew/Cellar/pcre2/10.44/lib -lpcre2-8 -lz
 	
 
 
@@ -1200,64 +1200,64 @@ objs/src/http/modules/ngx_http_upstream_zone_module.o:	$(CORE_DEPS) $(HTTP_DEPS)
 manpage:	objs/nginx.8
 
 objs/nginx.8:	docs/man/nginx.8 objs/ngx_auto_config.h
-	sed -e "s|%%PREFIX%%|/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file|" \
-		-e "s|%%PID_PATH%%|/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs/nginx.pid|" \
-		-e "s|%%CONF_PATH%%|/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/nginx.conf|" \
-		-e "s|%%ERROR_LOG_PATH%%|/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs/error.log|" \
+	sed -e "s|%%PREFIX%%|/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file|" \
+		-e "s|%%PID_PATH%%|/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/logs/nginx.pid|" \
+		-e "s|%%CONF_PATH%%|/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/nginx.conf|" \
+		-e "s|%%ERROR_LOG_PATH%%|/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/logs/error.log|" \
 		< docs/man/nginx.8 > $@
 
 install:	build 
-	test -d '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file' || mkdir -p '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file'
+	test -d '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file' || mkdir -p '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file'
 
-	test -d '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/sbin' \
-		|| mkdir -p '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/sbin'
-	test ! -f '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/sbin/nginx' \
-		|| mv '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/sbin/nginx' \
-			'$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/sbin/nginx.old'
-	cp objs/nginx '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/sbin/nginx'
+	test -d '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/sbin' \
+		|| mkdir -p '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/sbin'
+	test ! -f '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/sbin/nginx' \
+		|| mv '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/sbin/nginx' \
+			'$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/sbin/nginx.old'
+	cp objs/nginx '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/sbin/nginx'
 
-	test -d '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf' \
-		|| mkdir -p '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	test -d '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf' \
+		|| mkdir -p '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
 
-	cp conf/koi-win '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
-	cp conf/koi-utf '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
-	cp conf/win-utf '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	cp conf/koi-win '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	cp conf/koi-utf '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	cp conf/win-utf '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
 
-	test -f '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/mime.types' \
-		|| cp conf/mime.types '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
-	cp conf/mime.types '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/mime.types.default'
+	test -f '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/mime.types' \
+		|| cp conf/mime.types '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	cp conf/mime.types '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/mime.types.default'
 
-	test -f '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/fastcgi_params' \
-		|| cp conf/fastcgi_params '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	test -f '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/fastcgi_params' \
+		|| cp conf/fastcgi_params '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
 	cp conf/fastcgi_params \
-		'$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/fastcgi_params.default'
+		'$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/fastcgi_params.default'
 
-	test -f '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/fastcgi.conf' \
-		|| cp conf/fastcgi.conf '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
-	cp conf/fastcgi.conf '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/fastcgi.conf.default'
+	test -f '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/fastcgi.conf' \
+		|| cp conf/fastcgi.conf '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	cp conf/fastcgi.conf '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/fastcgi.conf.default'
 
-	test -f '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/uwsgi_params' \
-		|| cp conf/uwsgi_params '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	test -f '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/uwsgi_params' \
+		|| cp conf/uwsgi_params '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
 	cp conf/uwsgi_params \
-		'$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/uwsgi_params.default'
+		'$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/uwsgi_params.default'
 
-	test -f '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/scgi_params' \
-		|| cp conf/scgi_params '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf'
+	test -f '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/scgi_params' \
+		|| cp conf/scgi_params '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf'
 	cp conf/scgi_params \
-		'$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/scgi_params.default'
+		'$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/scgi_params.default'
 
-	test -f '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/nginx.conf' \
-		|| cp conf/nginx.conf '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/nginx.conf'
-	cp conf/nginx.conf '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/conf/nginx.conf.default'
+	test -f '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/nginx.conf' \
+		|| cp conf/nginx.conf '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/nginx.conf'
+	cp conf/nginx.conf '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/conf/nginx.conf.default'
 
-	test -d '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs' \
-		|| mkdir -p '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs'
+	test -d '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/logs' \
+		|| mkdir -p '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/logs'
 
-	test -d '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs' \
-		|| mkdir -p '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs'
+	test -d '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/logs' \
+		|| mkdir -p '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/logs'
 
-	test -d '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/html' \
-		|| cp -R docs/html '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file'
+	test -d '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/html' \
+		|| cp -R docs/html '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file'
 
-	test -d '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs' \
-		|| mkdir -p '$(DESTDIR)/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs'
+	test -d '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/logs' \
+		|| mkdir -p '$(DESTDIR)/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file/logs'
