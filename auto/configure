@@ -105,6 +105,7 @@ have=NGX_HTTP_SCGI_TEMP_PATH value="\"$NGX_HTTP_SCGI_TEMP_PATH\""
 . auto/define
 
 . auto/make
+. auto/cmake
 . auto/lib/make
 . auto/install
 
