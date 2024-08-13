@@ -2,77 +2,59 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/socket.h>
 #include <arpa/inet.h>
-#include <netinet/ip.h>
-#include <netinet/tcp.h>
 
 #define PORT 8080
-
-// IP header structure
-struct ipheader {
-    unsigned char      iph_ihl:4, iph_ver:4;
-    unsigned char      iph_tos;
-    unsigned short int iph_len;
-    unsigned short int iph_ident;
-    unsigned short int iph_offset;
-    unsigned char      iph_ttl;
-    unsigned char      iph_protocol;
-    unsigned short int iph_chksum;
-    struct  in_addr    iph_sourceip;
-    struct  in_addr    iph_destip;
-};
-
-// TCP header structure
-struct tcpheader {
-    unsigned short int tcph_srcport;
-    unsigned short int tcph_destport;
-    unsigned int       tcph_seqnum;
-    unsigned int       tcph_acknum;
-    unsigned char      tcph_reserved:4, tcph_offset:4;
-    unsigned char      tcph_flags;
-    unsigned short int tcph_win;
-    unsigned short int tcph_chksum;
-    unsigned short int tcph_urgptr;
-};
+#define BUFFER_SIZE 1024
 
 int main() {
-    int sock;
-    char buffer[4096];
-    struct sockaddr_in src_addr;
-    socklen_t addr_len = sizeof(src_addr);
+    int server_fd, new_socket;
+    struct sockaddr_in address;
+    int addrlen = sizeof(address);
+    char buffer[BUFFER_SIZE] = {0};
 
-    // 创建一个原始套接字，用于捕获TCP数据包
-    if ((sock = socket(AF_INET, SOCK_RAW, IPPROTO_TCP)) < 0) {
-        perror("Socket creation failed");
+    // 创建套接字
+    if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0) {
+        perror("socket failed");
         exit(EXIT_FAILURE);
     }
 
-    printf("Listening for incoming SYN packets on port %d...\n", PORT);
+    // 配置服务器地址结构体
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = INADDR_ANY;
+    address.sin_port = htons(PORT);
 
-    while (1) {
-        memset(buffer, 0, sizeof(buffer));
-
-        // 接收传入的数据包
-        if (recvfrom(sock, buffer, sizeof(buffer), 0, (struct sockaddr *)&src_addr, &addr_len) < 0) {
-            perror("Packet receive failed");
-            close(sock);
-            exit(EXIT_FAILURE);
-        }
-
-        struct ipheader *ip = (struct ipheader *) buffer;
-        struct tcpheader *tcp = (struct tcpheader *) (buffer + ip->iph_ihl * 4);
-
-        // 检查接收到的包是否为TCP SYN包，并且目标端口是否为8080
-        if (tcp->tcph_flags == TH_SYN && ntohs(tcp->tcph_destport) == PORT) {
-            sleep(1000);
-            printf("Received SYN packet from %s:%d\n",
-                   inet_ntoa(ip->iph_sourceip),
-                   ntohs(tcp->tcph_srcport));
-            // 不发送SYN+ACK，直接丢弃包
-        }
+    // 绑定套接字
+    if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
+        perror("bind failed");
+        exit(EXIT_FAILURE);
     }
 
-    close(sock);
+    // 监听连接
+    if (listen(server_fd, 3) < 0) {
+        perror("listen failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // 接受一个连接
+    if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
+        perror("accept failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // 读取 HTTP 请求数据
+    int valread = read(new_socket, buffer, BUFFER_SIZE);
+    if (valread < 0) {
+        perror("read failed");
+        exit(EXIT_FAILURE);
+    }
+
+    // 打印 HTTP 请求数据
+    printf("HTTP Request:\n%s\n", buffer);
+    sleep(3);
+    // 关闭套接字
+    close(new_socket);
+    close(server_fd);
+
     return 0;
 }
