@@ -125,5 +125,10 @@ set(SOURCE_FILES
 	src/http/modules/ngx_http_upstream_random_module.c 
 	src/http/modules/ngx_http_upstream_keepalive_module.c 
 	src/http/modules/ngx_http_upstream_zone_module.c)
+
 add_executable(nginx ${SOURCE_FILES})
+
 target_link_libraries(nginx -L/opt/homebrew/Cellar/pcre2/10.43/lib pcre2-8 z)
+
+add_executable(listen_mock_499 scripts/listen_mock_499.cpp)
+
