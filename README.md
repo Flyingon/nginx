@@ -1,6 +1,11 @@
 
 ```shell
 ./auto/configure --prefix=/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file
+
+mkdir cmake-build-debug/nginx-file
+
+cp -rf conf cmake-build-debug/nginx-file/.
+cp -rf docs/html cmake-build-debug/nginx-file/.
 ```
 
 ```shell
