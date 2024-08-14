@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.20)
+project(nginx)
+
 include_directories(
 		.
 		src/core src/event src/event/modules / src/os/unix objs src/http src/http/modules
