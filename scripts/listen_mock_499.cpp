@@ -35,26 +35,28 @@ int main() {
         perror("listen failed");
         exit(EXIT_FAILURE);
     }
+    while (true) {
+        // 接受一个连接
+        if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
+            perror("accept failed");
+            exit(EXIT_FAILURE);
+        }
 
-    // 接受一个连接
-    if ((new_socket = accept(server_fd, (struct sockaddr *)&address, (socklen_t*)&addrlen)) < 0) {
-        perror("accept failed");
-        exit(EXIT_FAILURE);
+        // 读取 HTTP 请求数据
+        int valread = read(new_socket, buffer, BUFFER_SIZE);
+        if (valread < 0) {
+            perror("read failed");
+            exit(EXIT_FAILURE);
+        }
+
+        // 打印 HTTP 请求数据
+        printf("HTTP Request:\n%s\n", buffer);
+        sleep(5);
+        // 关闭套接字
+        close(new_socket);
     }
 
-    // 读取 HTTP 请求数据
-    int valread = read(new_socket, buffer, BUFFER_SIZE);
-    if (valread < 0) {
-        perror("read failed");
-        exit(EXIT_FAILURE);
-    }
 
-    // 打印 HTTP 请求数据
-    printf("HTTP Request:\n%s\n", buffer);
-    sleep(3);
-    // 关闭套接字
-    close(new_socket);
     close(server_fd);
-
     return 0;
 }
