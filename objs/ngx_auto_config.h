@@ -1,4 +1,4 @@
-#define NGX_CONFIGURE " --prefix=/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file"
+#define NGX_CONFIGURE " --prefix=/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file --add-module=src/mymodule"
 
 #ifndef NGX_COMPILER
 #define NGX_COMPILER  "clang 15.0.0 (clang-1500.1.0.2.5)"

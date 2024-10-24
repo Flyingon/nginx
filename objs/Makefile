@@ -105,6 +105,9 @@ HTTP_INCS = -I src/http \
 	-I src/http/modules
 
 
+ADDON_DEPS = $(CORE_DEPS)  $(HTTP_DEPS)
+
+
 build:	binary modules manpage
 
 binary:	objs/nginx
@@ -228,6 +231,8 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/http/modules/ngx_http_upstream_random_module.o \
 	objs/src/http/modules/ngx_http_upstream_keepalive_module.o \
 	objs/src/http/modules/ngx_http_upstream_zone_module.o \
+	objs/addon/mymodule/ngx_http_mymodule_module.o \
+	objs/addon/mymodule/ngx_http_mymodule_module.o \
 	objs/ngx_modules.o
 
 	$(LINK) -o objs/nginx \
@@ -350,6 +355,8 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/http/modules/ngx_http_upstream_random_module.o \
 	objs/src/http/modules/ngx_http_upstream_keepalive_module.o \
 	objs/src/http/modules/ngx_http_upstream_zone_module.o \
+	objs/addon/mymodule/ngx_http_mymodule_module.o \
+	objs/addon/mymodule/ngx_http_mymodule_module.o \
 	objs/ngx_modules.o \
 	-L/opt/homebrew/Cellar/pcre2/10.43/lib -lpcre2-8 -lz
 	
@@ -1195,6 +1202,20 @@ objs/src/http/modules/ngx_http_upstream_zone_module.o:	$(CORE_DEPS) $(HTTP_DEPS)
 	$(CC) -c $(CFLAGS) $(CORE_INCS) $(HTTP_INCS) \
 		-o objs/src/http/modules/ngx_http_upstream_zone_module.o \
 		src/http/modules/ngx_http_upstream_zone_module.c
+
+
+objs/addon/mymodule/ngx_http_mymodule_module.o:	$(ADDON_DEPS) \
+	src/mymodule/ngx_http_mymodule_module.c
+	$(CC) -c $(CFLAGS)  $(ALL_INCS) \
+		-o objs/addon/mymodule/ngx_http_mymodule_module.o \
+		src/mymodule/ngx_http_mymodule_module.c
+
+
+objs/addon/mymodule/ngx_http_mymodule_module.o:	$(ADDON_DEPS) \
+	src/mymodule/ngx_http_mymodule_module.cpp
+	$(CC) -c $(CFLAGS)  $(ALL_INCS) \
+		-o objs/addon/mymodule/ngx_http_mymodule_module.o \
+		src/mymodule/ngx_http_mymodule_module.cpp
 
 
 manpage:	objs/nginx.8

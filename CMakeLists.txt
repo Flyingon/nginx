@@ -5,6 +5,7 @@ include_directories(
 		.
 		src/core src/event src/event/modules / src/os/unix objs src/http src/http/modules
 		/opt/homebrew/Cellar/pcre2/10.43/include
+		src/mymodule
 )
 set(SOURCE_FILES
     objs/ngx_modules.c
@@ -126,7 +127,10 @@ set(SOURCE_FILES
 	src/http/modules/ngx_http_upstream_least_conn_module.c 
 	src/http/modules/ngx_http_upstream_random_module.c 
 	src/http/modules/ngx_http_upstream_keepalive_module.c 
-	src/http/modules/ngx_http_upstream_zone_module.c)
+	src/http/modules/ngx_http_upstream_zone_module.c
+		src/mymodule/ngx_http_mymodule_module.c
+		src/mymodule/ngx_http_mymodule_module.cpp
+)
 
 add_executable(nginx ${SOURCE_FILES})
 

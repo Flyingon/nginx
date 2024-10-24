@@ -15,3 +15,7 @@ include_directories(
         /opt/homebrew/Cellar/pcre2/10.43/include
 )
 ```
+
+```shell mymodule demo
+./auto/configure --prefix=/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file --add-module=src/mymodule
+```
