@@ -76,6 +76,7 @@ CORE_DEPS = src/core/nginx.h \
 	src/os/unix/ngx_process_cycle.h \
 	src/os/unix/ngx_darwin_config.h \
 	src/os/unix/ngx_darwin.h \
+	src/core/ngx_thread_pool.h \
 	src/core/ngx_regex.h \
 	objs/ngx_auto_config.h
 
@@ -103,6 +104,9 @@ HTTP_DEPS = src/http/ngx_http.h \
 
 HTTP_INCS = -I src/http \
 	-I src/http/modules
+
+
+ADDON_DEPS = $(CORE_DEPS)  $(HTTP_DEPS)
 
 
 build:	binary modules manpage
@@ -176,6 +180,10 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/os/unix/ngx_darwin_init.o \
 	objs/src/event/modules/ngx_kqueue_module.o \
 	objs/src/os/unix/ngx_darwin_sendfile_chain.o \
+	objs/src/core/ngx_thread_pool.o \
+	objs/src/os/unix/ngx_thread_cond.o \
+	objs/src/os/unix/ngx_thread_mutex.o \
+	objs/src/os/unix/ngx_thread_id.o \
 	objs/src/core/ngx_regex.o \
 	objs/src/http/ngx_http.o \
 	objs/src/http/ngx_http_core_module.o \
@@ -228,6 +236,7 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/http/modules/ngx_http_upstream_random_module.o \
 	objs/src/http/modules/ngx_http_upstream_keepalive_module.o \
 	objs/src/http/modules/ngx_http_upstream_zone_module.o \
+	objs/addon/mymodules/ngx_http_clicktracker.o \
 	objs/ngx_modules.o
 
 	$(LINK) -o objs/nginx \
@@ -298,6 +307,10 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/os/unix/ngx_darwin_init.o \
 	objs/src/event/modules/ngx_kqueue_module.o \
 	objs/src/os/unix/ngx_darwin_sendfile_chain.o \
+	objs/src/core/ngx_thread_pool.o \
+	objs/src/os/unix/ngx_thread_cond.o \
+	objs/src/os/unix/ngx_thread_mutex.o \
+	objs/src/os/unix/ngx_thread_id.o \
 	objs/src/core/ngx_regex.o \
 	objs/src/http/ngx_http.o \
 	objs/src/http/ngx_http_core_module.o \
@@ -350,8 +363,9 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/http/modules/ngx_http_upstream_random_module.o \
 	objs/src/http/modules/ngx_http_upstream_keepalive_module.o \
 	objs/src/http/modules/ngx_http_upstream_zone_module.o \
+	objs/addon/mymodules/ngx_http_clicktracker.o \
 	objs/ngx_modules.o \
-	-L/opt/homebrew/Cellar/pcre2/10.44/lib -lpcre2-8 -lz
+	-lpthread -L/opt/homebrew/Cellar/pcre2/10.44/lib -lpcre2-8 -lz
 	
 
 
@@ -833,6 +847,34 @@ objs/src/os/unix/ngx_darwin_sendfile_chain.o:	$(CORE_DEPS) \
 		src/os/unix/ngx_darwin_sendfile_chain.c
 
 
+objs/src/core/ngx_thread_pool.o:	$(CORE_DEPS) \
+	src/core/ngx_thread_pool.c
+	$(CC) -c $(CFLAGS) $(CORE_INCS) \
+		-o objs/src/core/ngx_thread_pool.o \
+		src/core/ngx_thread_pool.c
+
+
+objs/src/os/unix/ngx_thread_cond.o:	$(CORE_DEPS) \
+	src/os/unix/ngx_thread_cond.c
+	$(CC) -c $(CFLAGS) $(CORE_INCS) \
+		-o objs/src/os/unix/ngx_thread_cond.o \
+		src/os/unix/ngx_thread_cond.c
+
+
+objs/src/os/unix/ngx_thread_mutex.o:	$(CORE_DEPS) \
+	src/os/unix/ngx_thread_mutex.c
+	$(CC) -c $(CFLAGS) $(CORE_INCS) \
+		-o objs/src/os/unix/ngx_thread_mutex.o \
+		src/os/unix/ngx_thread_mutex.c
+
+
+objs/src/os/unix/ngx_thread_id.o:	$(CORE_DEPS) \
+	src/os/unix/ngx_thread_id.c
+	$(CC) -c $(CFLAGS) $(CORE_INCS) \
+		-o objs/src/os/unix/ngx_thread_id.o \
+		src/os/unix/ngx_thread_id.c
+
+
 objs/src/core/ngx_regex.o:	$(CORE_DEPS) \
 	src/core/ngx_regex.c
 	$(CC) -c $(CFLAGS) $(CORE_INCS) \
@@ -1195,6 +1237,13 @@ objs/src/http/modules/ngx_http_upstream_zone_module.o:	$(CORE_DEPS) $(HTTP_DEPS)
 	$(CC) -c $(CFLAGS) $(CORE_INCS) $(HTTP_INCS) \
 		-o objs/src/http/modules/ngx_http_upstream_zone_module.o \
 		src/http/modules/ngx_http_upstream_zone_module.c
+
+
+objs/addon/mymodules/ngx_http_clicktracker.o:	$(ADDON_DEPS) \
+	src/mymodules/ngx_http_clicktracker.cpp
+	$(CC) -c $(CFLAGS)  $(ALL_INCS) \
+		-o objs/addon/mymodules/ngx_http_clicktracker.o \
+		src/mymodules/ngx_http_clicktracker.cpp
 
 
 manpage:	objs/nginx.8

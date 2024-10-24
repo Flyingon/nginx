@@ -3,11 +3,10 @@ project(nginx)
 
 include_directories(
 		.
-		src/core src/event src/event/modules / src/os/unix objs src/http src/http/modules
+		src/core src/event src/event/modules src/os/unix objs src/http src/http/modules
 		/opt/homebrew/Cellar/pcre2/10.43/include
 		/opt/homebrew/Cellar/pcre2/10.44/include
 )
-
 
 set(SOURCE_FILES
     objs/ngx_modules.c
@@ -78,6 +77,10 @@ set(SOURCE_FILES
 	src/os/unix/ngx_darwin_init.c 
 	src/event/modules/ngx_kqueue_module.c 
 	src/os/unix/ngx_darwin_sendfile_chain.c 
+	src/core/ngx_thread_pool.c 
+	src/os/unix/ngx_thread_cond.c 
+	src/os/unix/ngx_thread_mutex.c 
+	src/os/unix/ngx_thread_id.c 
 	src/core/ngx_regex.c 
 	src/http/ngx_http.c 
 	src/http/ngx_http_core_module.c 
@@ -129,13 +132,21 @@ set(SOURCE_FILES
 	src/http/modules/ngx_http_upstream_least_conn_module.c 
 	src/http/modules/ngx_http_upstream_random_module.c 
 	src/http/modules/ngx_http_upstream_keepalive_module.c 
-	src/http/modules/ngx_http_upstream_zone_module.c)
+	src/http/modules/ngx_http_upstream_zone_module.c 
+	src/mymodules/ngx_http_clicktracker.cpp)
 
+
+SET (Libs
+		/opt/homebrew/Cellar/sqlite/3.47.0/lib/libsqlite3.a
+		pcre2-8
+		z
+)
+# 查找 SQLite
+#find_package(SQLite3 REQUIRED)
+#message("SQLite3 library path: ${SQLITE3_LIBRARIES}")
 
 add_executable(nginx ${SOURCE_FILES})
 
-
-target_link_libraries(nginx -L/opt/homebrew/Cellar/pcre2/10.44/lib pcre2-8 z)
+target_link_libraries(nginx -L/opt/homebrew/Cellar/pcre2/10.44/lib ${Libs} )
 
 add_executable(listen_mock_499 scripts/listen_mock_499.cpp)
-

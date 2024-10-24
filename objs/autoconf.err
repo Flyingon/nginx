@@ -72,8 +72,8 @@ checking for sys/statvfs.h
 checking for crypt.h
 
 objs/autotest.c:3:10: fatal error: 'crypt.h' file not found
-#include <crypt.h>
-         ^~~~~~~~~
+    3 | #include <crypt.h>
+      |          ^~~~~~~~~
 1 error generated.
 ----------
 
@@ -104,11 +104,11 @@ checking for sendfile()
 checking for atomic(3)
 
 objs/autotest.c:8:24: warning: 'OSAtomicCompareAndSwap32Barrier' is deprecated: first deprecated in macOS 10.12 - Use atomic_compare_exchange_strong() from <stdatomic.h> instead [-Wdeprecated-declarations]
-                  if (!OSAtomicCompareAndSwap32Barrier(0, 1, &lock)) return 1;
-                       ^
+    8 |                   if (!OSAtomicCompareAndSwap32Barrier(0, 1, &lock)) return 1;
+      |                        ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/libkern/OSAtomicDeprecated.h:520:9: note: 'OSAtomicCompareAndSwap32Barrier' has been explicitly marked deprecated here
-bool    OSAtomicCompareAndSwap32Barrier( int32_t __oldValue, int32_t __newValue, volatile int32_t *__theValue );
-        ^
+  520 | bool    OSAtomicCompareAndSwap32Barrier( int32_t __oldValue, int32_t __newValue, volatile int32_t *__theValue );
+      |         ^
 1 warning generated.
 
 ----------------------------------------
@@ -119,8 +119,8 @@ checking for poll()
 checking for /dev/poll
 
 objs/autotest.c:4:10: fatal error: 'sys/devpoll.h' file not found
-#include <sys/devpoll.h>
-         ^~~~~~~~~~~~~~~
+    4 | #include <sys/devpoll.h>
+      |          ^~~~~~~~~~~~~~~
 1 error generated.
 ----------
 
@@ -151,8 +151,8 @@ checking for crypt()
 checking for F_READAHEAD
 
 objs/autotest.c:7:14: error: use of undeclared identifier 'F_READAHEAD'
-    fcntl(0, F_READAHEAD, 1);;
-             ^
+    7 |     fcntl(0, F_READAHEAD, 1);;
+      |              ^
 1 error generated.
 ----------
 
@@ -173,11 +173,11 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for posix_fadvise()
 
 objs/autotest.c:7:5: error: call to undeclared function 'posix_fadvise'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    posix_fadvise(0, 0, 0, POSIX_FADV_SEQUENTIAL);;
-    ^
+    7 |     posix_fadvise(0, 0, 0, POSIX_FADV_SEQUENTIAL);;
+      |     ^
 objs/autotest.c:7:28: error: use of undeclared identifier 'POSIX_FADV_SEQUENTIAL'
-    posix_fadvise(0, 0, 0, POSIX_FADV_SEQUENTIAL);;
-                           ^
+    7 |     posix_fadvise(0, 0, 0, POSIX_FADV_SEQUENTIAL);;
+      |                            ^
 2 errors generated.
 ----------
 
@@ -198,8 +198,8 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for O_DIRECT
 
 objs/autotest.c:7:23: error: use of undeclared identifier 'O_DIRECT'
-    fcntl(0, F_SETFL, O_DIRECT);;
-                      ^
+    7 |     fcntl(0, F_SETFL, O_DIRECT);;
+      |                       ^
 1 error generated.
 ----------
 
@@ -224,11 +224,11 @@ checking for F_NOCACHE
 checking for directio()
 
 objs/autotest.c:8:5: error: call to undeclared function 'directio'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    directio(0, DIRECTIO_ON);;
-    ^
+    8 |     directio(0, DIRECTIO_ON);;
+      |     ^
 objs/autotest.c:8:17: error: use of undeclared identifier 'DIRECTIO_ON'
-    directio(0, DIRECTIO_ON);;
-                ^
+    8 |     directio(0, DIRECTIO_ON);;
+      |                 ^
 2 errors generated.
 ----------
 
@@ -266,31 +266,31 @@ checking for sched_yield()
 checking for sched_setaffinity()
 
 objs/autotest.c:7:5: error: use of undeclared identifier 'cpu_set_t'
-    cpu_set_t mask;
-    ^
+    7 |     cpu_set_t mask;
+      |     ^
 objs/autotest.c:8:19: error: call to undeclared function 'CPU_ZERO'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-                  CPU_ZERO(&mask);
-                  ^
+    8 |                   CPU_ZERO(&mask);
+      |                   ^
 objs/autotest.c:8:29: error: use of undeclared identifier 'mask'; did you mean 'main'?
-                  CPU_ZERO(&mask);
-                            ^~~~
-                            main
+    8 |                   CPU_ZERO(&mask);
+      |                             ^~~~
+      |                             main
 objs/autotest.c:6:5: note: 'main' declared here
-int main(void) {
-    ^
+    6 | int main(void) {
+      |     ^
 objs/autotest.c:9:19: error: call to undeclared function 'sched_setaffinity'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-                  sched_setaffinity(0, sizeof(cpu_set_t), &mask);
-                  ^
+    9 |                   sched_setaffinity(0, sizeof(cpu_set_t), &mask);
+      |                   ^
 objs/autotest.c:9:47: error: use of undeclared identifier 'cpu_set_t'
-                  sched_setaffinity(0, sizeof(cpu_set_t), &mask);
-                                              ^
+    9 |                   sched_setaffinity(0, sizeof(cpu_set_t), &mask);
+      |                                               ^
 objs/autotest.c:9:60: error: use of undeclared identifier 'mask'; did you mean 'main'?
-                  sched_setaffinity(0, sizeof(cpu_set_t), &mask);
-                                                           ^~~~
-                                                           main
+    9 |                   sched_setaffinity(0, sizeof(cpu_set_t), &mask);
+      |                                                            ^~~~
+      |                                                            main
 objs/autotest.c:6:5: note: 'main' declared here
-int main(void) {
-    ^
+    6 | int main(void) {
+      |     ^
 6 errors generated.
 ----------
 
@@ -313,8 +313,8 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for SO_SETFIB
 
 objs/autotest.c:7:31: error: use of undeclared identifier 'SO_SETFIB'
-    setsockopt(0, SOL_SOCKET, SO_SETFIB, NULL, 0);
-                              ^
+    7 |     setsockopt(0, SOL_SOCKET, SO_SETFIB, NULL, 0);
+      |                               ^
 1 error generated.
 ----------
 
@@ -339,8 +339,8 @@ checking for SO_REUSEPORT
 checking for SO_ACCEPTFILTER
 
 objs/autotest.c:7:31: error: use of undeclared identifier 'SO_ACCEPTFILTER'
-    setsockopt(0, SOL_SOCKET, SO_ACCEPTFILTER, NULL, 0);
-                              ^
+    7 |     setsockopt(0, SOL_SOCKET, SO_ACCEPTFILTER, NULL, 0);
+      |                               ^
 1 error generated.
 ----------
 
@@ -361,8 +361,8 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for SO_BINDANY
 
 objs/autotest.c:7:31: error: use of undeclared identifier 'SO_BINDANY'
-    setsockopt(0, SOL_SOCKET, SO_BINDANY, NULL, 0);
-                              ^
+    7 |     setsockopt(0, SOL_SOCKET, SO_BINDANY, NULL, 0);
+      |                               ^
 1 error generated.
 ----------
 
@@ -383,8 +383,8 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for IP_TRANSPARENT
 
 objs/autotest.c:8:31: error: use of undeclared identifier 'IP_TRANSPARENT'
-    setsockopt(0, IPPROTO_IP, IP_TRANSPARENT, NULL, 0);
-                              ^
+    8 |     setsockopt(0, IPPROTO_IP, IP_TRANSPARENT, NULL, 0);
+      |                               ^
 1 error generated.
 ----------
 
@@ -406,8 +406,8 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for IP_BINDANY
 
 objs/autotest.c:8:31: error: use of undeclared identifier 'IP_BINDANY'
-    setsockopt(0, IPPROTO_IP, IP_BINDANY, NULL, 0);
-                              ^
+    8 |     setsockopt(0, IPPROTO_IP, IP_BINDANY, NULL, 0);
+      |                               ^
 1 error generated.
 ----------
 
@@ -429,8 +429,8 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for IP_BIND_ADDRESS_NO_PORT
 
 objs/autotest.c:8:31: error: use of undeclared identifier 'IP_BIND_ADDRESS_NO_PORT'
-    setsockopt(0, IPPROTO_IP, IP_BIND_ADDRESS_NO_PORT, NULL, 0);
-                              ^
+    8 |     setsockopt(0, IPPROTO_IP, IP_BIND_ADDRESS_NO_PORT, NULL, 0);
+      |                               ^
 1 error generated.
 ----------
 
@@ -456,8 +456,8 @@ checking for IP_RECVDSTADDR
 checking for IP_SENDSRCADDR
 
 objs/autotest.c:8:31: error: use of undeclared identifier 'IP_SENDSRCADDR'
-    setsockopt(0, IPPROTO_IP, IP_SENDSRCADDR, NULL, 0);
-                              ^
+    8 |     setsockopt(0, IPPROTO_IP, IP_SENDSRCADDR, NULL, 0);
+      |                               ^
 1 error generated.
 ----------
 
@@ -487,11 +487,11 @@ checking for IPV6_RECVPKTINFO
 checking for IP_MTU_DISCOVER
 
 objs/autotest.c:8:12: error: use of undeclared identifier 'IP_PMTUDISC_DO'
-    (void) IP_PMTUDISC_DO;
-           ^
+    8 |     (void) IP_PMTUDISC_DO;
+      |            ^
 objs/autotest.c:9:45: error: use of undeclared identifier 'IP_MTU_DISCOVER'
-                  setsockopt(0, IPPROTO_IP, IP_MTU_DISCOVER, NULL, 0);
-                                            ^
+    9 |                   setsockopt(0, IPPROTO_IP, IP_MTU_DISCOVER, NULL, 0);
+      |                                             ^
 2 errors generated.
 ----------
 
@@ -514,11 +514,11 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for IPV6_MTU_DISCOVER
 
 objs/autotest.c:8:12: error: use of undeclared identifier 'IPV6_PMTUDISC_DO'
-    (void) IPV6_PMTUDISC_DO;
-           ^
+    8 |     (void) IPV6_PMTUDISC_DO;
+      |            ^
 objs/autotest.c:9:47: error: use of undeclared identifier 'IPV6_MTU_DISCOVER'
-                  setsockopt(0, IPPROTO_IPV6, IPV6_MTU_DISCOVER, NULL, 0);
-                                              ^
+    9 |                   setsockopt(0, IPPROTO_IPV6, IPV6_MTU_DISCOVER, NULL, 0);
+      |                                               ^
 2 errors generated.
 ----------
 
@@ -549,8 +549,8 @@ checking for IPV6_DONTFRAG
 checking for TCP_DEFER_ACCEPT
 
 objs/autotest.c:9:32: error: use of undeclared identifier 'TCP_DEFER_ACCEPT'
-    setsockopt(0, IPPROTO_TCP, TCP_DEFER_ACCEPT, NULL, 0);
-                               ^
+    9 |     setsockopt(0, IPPROTO_TCP, TCP_DEFER_ACCEPT, NULL, 0);
+      |                                ^
 1 error generated.
 ----------
 
@@ -573,8 +573,8 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for TCP_KEEPIDLE
 
 objs/autotest.c:9:32: error: use of undeclared identifier 'TCP_KEEPIDLE'
-    setsockopt(0, IPPROTO_TCP, TCP_KEEPIDLE, NULL, 0);
-                               ^
+    9 |     setsockopt(0, IPPROTO_TCP, TCP_KEEPIDLE, NULL, 0);
+      |                                ^
 1 error generated.
 ----------
 
@@ -603,20 +603,20 @@ checking for TCP_FASTOPEN
 checking for TCP_INFO
 
 objs/autotest.c:9:24: error: invalid application of 'sizeof' to an incomplete type 'struct tcp_info'
-    socklen_t optlen = sizeof(struct tcp_info);
-                       ^     ~~~~~~~~~~~~~~~~~
+    9 |     socklen_t optlen = sizeof(struct tcp_info);
+      |                        ^     ~~~~~~~~~~~~~~~~~
 objs/autotest.c:9:38: note: forward declaration of 'struct tcp_info'
-    socklen_t optlen = sizeof(struct tcp_info);
-                                     ^
+    9 |     socklen_t optlen = sizeof(struct tcp_info);
+      |                                      ^
 objs/autotest.c:10:35: error: variable has incomplete type 'struct tcp_info'
-                  struct tcp_info ti;
-                                  ^
+   10 |                   struct tcp_info ti;
+      |                                   ^
 objs/autotest.c:9:38: note: forward declaration of 'struct tcp_info'
-    socklen_t optlen = sizeof(struct tcp_info);
-                                     ^
+    9 |     socklen_t optlen = sizeof(struct tcp_info);
+      |                                      ^
 objs/autotest.c:15:46: error: use of undeclared identifier 'TCP_INFO'
-                  getsockopt(0, IPPROTO_TCP, TCP_INFO, &ti, &optlen);
-                                             ^
+   15 |                   getsockopt(0, IPPROTO_TCP, TCP_INFO, &ti, &optlen);
+      |                                              ^
 3 errors generated.
 ----------
 
@@ -645,15 +645,15 @@ cc -pipe -D__APPLE_USE_RFC_3542 -o objs/autotest objs/autotest.c
 checking for accept4()
 
 objs/autotest.c:7:5: error: call to undeclared function 'accept4'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    accept4(0, NULL, NULL, SOCK_NONBLOCK);
-    ^
+    7 |     accept4(0, NULL, NULL, SOCK_NONBLOCK);
+      |     ^
 objs/autotest.c:7:5: note: did you mean 'accept'?
-/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:720:9: note: 'accept' declared here
-int     accept(int, struct sockaddr * __restrict, socklen_t * __restrict)
-        ^
+/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/socket.h:708:9: note: 'accept' declared here
+  708 | int     accept(int, struct sockaddr * __restrict, socklen_t * __restrict)
+      |         ^
 objs/autotest.c:7:28: error: use of undeclared identifier 'SOCK_NONBLOCK'
-    accept4(0, NULL, NULL, SOCK_NONBLOCK);
-                           ^
+    7 |     accept4(0, NULL, NULL, SOCK_NONBLOCK);
+      |                            ^
 2 errors generated.
 ----------
 
@@ -746,8 +746,8 @@ checking for AF_INET6
 checking for setproctitle()
 
 objs/autotest.c:7:5: error: call to undeclared function 'setproctitle'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    setproctitle("test");;
-    ^
+    7 |     setproctitle("test");;
+      |     ^
 1 error generated.
 ----------
 
@@ -780,11 +780,11 @@ checking for pwritev()
 checking for strerrordesc_np()
 
 objs/autotest.c:7:18: error: call to undeclared function 'strerrordesc_np'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    char *p; p = strerrordesc_np(0);
-                 ^
+    7 |     char *p; p = strerrordesc_np(0);
+      |                  ^
 objs/autotest.c:7:16: error: incompatible integer to pointer conversion assigning to 'char *' from 'int' [-Wint-conversion]
-    char *p; p = strerrordesc_np(0);
-               ^ ~~~~~~~~~~~~~~~~~~
+    7 |     char *p; p = strerrordesc_np(0);
+      |                ^ ~~~~~~~~~~~~~~~~~~
 2 errors generated.
 ----------
 
@@ -822,8 +822,8 @@ checking for posix_memalign()
 checking for memalign()
 
 objs/autotest.c:5:28: fatal error: 'malloc.h' file not found
-                  #include <malloc.h>
-                           ^~~~~~~~~~
+    5 |                   #include <malloc.h>
+      |                            ^~~~~~~~~~
 1 error generated.
 ----------
 
@@ -858,69 +858,69 @@ checking for System V shared memory
 checking for POSIX semaphores
 
 objs/autotest.c:8:23: warning: 'sem_init' is deprecated [-Wdeprecated-declarations]
-                  if (sem_init(&sem, 1, 0) == -1) return 1;
-                      ^
+    8 |                   if (sem_init(&sem, 1, 0) == -1) return 1;
+      |                       ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:55:42: note: 'sem_init' has been explicitly marked deprecated here
-int sem_init(sem_t *, int, unsigned int) __deprecated;
-                                         ^
+   55 | int sem_init(sem_t *, int, unsigned int) __deprecated;
+      |                                          ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
-#define __deprecated    __attribute__((__deprecated__))
-                                       ^
+  214 | #define __deprecated    __attribute__((__deprecated__))
+      |                                        ^
 objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declarations]
-                  sem_destroy(&sem);;
-                  ^
+    9 |                   sem_destroy(&sem);;
+      |                   ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:53:26: note: 'sem_destroy' has been explicitly marked deprecated here
-int sem_destroy(sem_t *) __deprecated;
-                         ^
+   53 | int sem_destroy(sem_t *) __deprecated;
+      |                          ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
-#define __deprecated    __attribute__((__deprecated__))
-                                       ^
+  214 | #define __deprecated    __attribute__((__deprecated__))
+      |                                        ^
 2 warnings generated.
 
 ----------------------------------------
 checking for POSIX semaphores in libpthread
 
 objs/autotest.c:8:23: warning: 'sem_init' is deprecated [-Wdeprecated-declarations]
-                  if (sem_init(&sem, 1, 0) == -1) return 1;
-                      ^
+    8 |                   if (sem_init(&sem, 1, 0) == -1) return 1;
+      |                       ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:55:42: note: 'sem_init' has been explicitly marked deprecated here
-int sem_init(sem_t *, int, unsigned int) __deprecated;
-                                         ^
+   55 | int sem_init(sem_t *, int, unsigned int) __deprecated;
+      |                                          ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
-#define __deprecated    __attribute__((__deprecated__))
-                                       ^
+  214 | #define __deprecated    __attribute__((__deprecated__))
+      |                                        ^
 objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declarations]
-                  sem_destroy(&sem);;
-                  ^
+    9 |                   sem_destroy(&sem);;
+      |                   ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:53:26: note: 'sem_destroy' has been explicitly marked deprecated here
-int sem_destroy(sem_t *) __deprecated;
-                         ^
+   53 | int sem_destroy(sem_t *) __deprecated;
+      |                          ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
-#define __deprecated    __attribute__((__deprecated__))
-                                       ^
+  214 | #define __deprecated    __attribute__((__deprecated__))
+      |                                        ^
 2 warnings generated.
 
 ----------------------------------------
 checking for POSIX semaphores in librt
 
 objs/autotest.c:8:23: warning: 'sem_init' is deprecated [-Wdeprecated-declarations]
-                  if (sem_init(&sem, 1, 0) == -1) return 1;
-                      ^
+    8 |                   if (sem_init(&sem, 1, 0) == -1) return 1;
+      |                       ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:55:42: note: 'sem_init' has been explicitly marked deprecated here
-int sem_init(sem_t *, int, unsigned int) __deprecated;
-                                         ^
+   55 | int sem_init(sem_t *, int, unsigned int) __deprecated;
+      |                                          ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
-#define __deprecated    __attribute__((__deprecated__))
-                                       ^
+  214 | #define __deprecated    __attribute__((__deprecated__))
+      |                                        ^
 objs/autotest.c:9:19: warning: 'sem_destroy' is deprecated [-Wdeprecated-declarations]
-                  sem_destroy(&sem);;
-                  ^
+    9 |                   sem_destroy(&sem);;
+      |                   ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/semaphore.h:53:26: note: 'sem_destroy' has been explicitly marked deprecated here
-int sem_destroy(sem_t *) __deprecated;
-                         ^
+   53 | int sem_destroy(sem_t *) __deprecated;
+      |                          ^
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/cdefs.h:214:40: note: expanded from macro '__deprecated'
-#define __deprecated    __attribute__((__deprecated__))
-                                       ^
+  214 | #define __deprecated    __attribute__((__deprecated__))
+      |                                        ^
 2 warnings generated.
 ld: library 'rt' not found
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
@@ -973,8 +973,8 @@ checking for sysconf(_SC_NPROCESSORS_ONLN)
 checking for sysconf(_SC_LEVEL1_DCACHE_LINESIZE)
 
 objs/autotest.c:7:13: error: use of undeclared identifier '_SC_LEVEL1_DCACHE_LINESIZE'
-    sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
-            ^
+    7 |     sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
+      |             ^
 1 error generated.
 ----------
 
@@ -1003,8 +1003,8 @@ checking for getaddrinfo()
 checking for PCRE2 library
 
 objs/autotest.c:5:36: fatal error: 'pcre2.h' file not found
-                          #include <pcre2.h>
-                                   ^~~~~~~~~
+    5 |                           #include <pcre2.h>
+      |                                    ^~~~~~~~~
 1 error generated.
 ----------
 

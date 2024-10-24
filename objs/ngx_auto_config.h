@@ -1,7 +1,7 @@
-#define NGX_CONFIGURE " --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file"
+#define NGX_CONFIGURE " --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file --with-threads --add-module=src/mymodules"
 
 #ifndef NGX_COMPILER
-#define NGX_COMPILER  "clang 15.0.0 (clang-1500.3.9.4)"
+#define NGX_COMPILER  "clang 16.0.0 (clang-1600.0.26.3)"
 #endif
 
 
@@ -270,6 +270,11 @@
 
 #ifndef NGX_HAVE_GETADDRINFO
 #define NGX_HAVE_GETADDRINFO  1
+#endif
+
+
+#ifndef NGX_THREADS
+#define NGX_THREADS  1
 #endif
 
 

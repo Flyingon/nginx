@@ -29,3 +29,8 @@ target_link_libraries(nginx ${PCRE2_LIBRARIES})
 daemon off;
 master_process off;
 ```
+
+
+```shell
+ ./auto/configure --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file  --with-threads --add-module=src/mymodules
+```
