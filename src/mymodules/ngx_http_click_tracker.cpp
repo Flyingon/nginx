@@ -69,7 +69,7 @@ ngx_module_t ngx_http_click_tracker_module = {
 static ngx_int_t ngx_http_click_tracker_init(ngx_conf_t *cf) {
     ngx_log_t *log = cf->log;
 
-    auto cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);
+//    auto cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);
     // 初始化数据库连接
     ngx_log_debug(NGX_LOG_DEBUG_HTTP, log, 0, "open sqlite3: %s", (char *)db_path.data);
     if (sqlite3_open((char *)db_path.data, &db) != SQLITE_OK) {

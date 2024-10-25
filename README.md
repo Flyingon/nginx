@@ -31,10 +31,16 @@ master_process off;
 ```
 
 ### 增加 mymodules
-```shell
+#### mac
+```
 ./auto/configure --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file --add-module=src/mymodules
+```
+#### ubuntu
+```
+./auto/configure --prefix=/root/services/nginx --add-module=src/mymodules --with-cc-opt="-I/usr/include" --with-ld-opt="-L/../usr/lib/x86_64-linux-gnu/ -lsqlite3"
 ```
 
 ```
 ./auto/configure --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file  --with-threads --add-module=src/mymodules
 ```
+
