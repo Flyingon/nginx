@@ -236,7 +236,7 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/http/modules/ngx_http_upstream_random_module.o \
 	objs/src/http/modules/ngx_http_upstream_keepalive_module.o \
 	objs/src/http/modules/ngx_http_upstream_zone_module.o \
-	objs/addon/mymodules/ngx_http_clicktracker.o \
+	objs/addon/mymodules/ngx_http_click_tracker.o \
 	objs/ngx_modules.o
 
 	$(LINK) -o objs/nginx \
@@ -363,7 +363,7 @@ objs/nginx:	objs/src/core/nginx.o \
 	objs/src/http/modules/ngx_http_upstream_random_module.o \
 	objs/src/http/modules/ngx_http_upstream_keepalive_module.o \
 	objs/src/http/modules/ngx_http_upstream_zone_module.o \
-	objs/addon/mymodules/ngx_http_clicktracker.o \
+	objs/addon/mymodules/ngx_http_click_tracker.o \
 	objs/ngx_modules.o \
 	-lpthread -L/opt/homebrew/Cellar/pcre2/10.44/lib -lpcre2-8 -lz
 	
@@ -1239,11 +1239,11 @@ objs/src/http/modules/ngx_http_upstream_zone_module.o:	$(CORE_DEPS) $(HTTP_DEPS)
 		src/http/modules/ngx_http_upstream_zone_module.c
 
 
-objs/addon/mymodules/ngx_http_clicktracker.o:	$(ADDON_DEPS) \
-	src/mymodules/ngx_http_clicktracker.cpp
+objs/addon/mymodules/ngx_http_click_tracker.o:	$(ADDON_DEPS) \
+	src/mymodules/ngx_http_click_tracker.cpp
 	$(CC) -c $(CFLAGS)  $(ALL_INCS) \
-		-o objs/addon/mymodules/ngx_http_clicktracker.o \
-		src/mymodules/ngx_http_clicktracker.cpp
+		-o objs/addon/mymodules/ngx_http_click_tracker.o \
+		src/mymodules/ngx_http_click_tracker.cpp
 
 
 manpage:	objs/nginx.8

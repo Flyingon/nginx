@@ -132,8 +132,8 @@ set(SOURCE_FILES
 	src/http/modules/ngx_http_upstream_least_conn_module.c 
 	src/http/modules/ngx_http_upstream_random_module.c 
 	src/http/modules/ngx_http_upstream_keepalive_module.c 
-	src/http/modules/ngx_http_upstream_zone_module.c 
-	src/mymodules/ngx_http_clicktracker.cpp)
+	src/http/modules/ngx_http_upstream_zone_module.c
+        src/mymodules/ngx_http_click_tracker.cpp)
 
 
 SET (Libs
@@ -144,6 +144,7 @@ SET (Libs
 # 查找 SQLite
 #find_package(SQLite3 REQUIRED)
 #message("SQLite3 library path: ${SQLITE3_LIBRARIES}")
+add_compile_options(-Wno-c++11-extensions) # 消除使用 c++11 以上特性的警告
 
 add_executable(nginx ${SOURCE_FILES})
 

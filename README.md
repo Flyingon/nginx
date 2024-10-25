@@ -30,7 +30,11 @@ daemon off;
 master_process off;
 ```
 
-
+### 增加 mymodules
 ```shell
- ./auto/configure --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file  --with-threads --add-module=src/mymodules
+./auto/configure --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file --add-module=src/mymodules
+```
+
+```
+./auto/configure --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file  --with-threads --add-module=src/mymodules
 ```
