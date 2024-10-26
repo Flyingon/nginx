@@ -5,15 +5,16 @@ extern "C" {
 #include <sqlite3.h>
 #include <ngx_thread_pool.h>
 }
-
-
+#include <iostream>
+#include <map>
 // 保存数据库的连接句柄
 sqlite3 *db;
-ngx_str_t db_path;  // SQLite 数据库文件路径
+ngx_str_t dbPath;  // SQLite 数据库文件路径
+std::map<std::string, bool> uriMap; // 存储
 
 // 配置存储结构体
 //typedef struct {
-//    ngx_str_t db_path; // 添加一个字段用于存储数据库路径
+//    ngx_str_t dbPath; // 添加一个字段用于存储数据库路径
 //} ngx_http_click_tracker_loc_conf_t;
 
 static ngx_int_t ngx_http_click_tracker_init(ngx_conf_t *cf);
@@ -29,11 +30,10 @@ static ngx_command_t ngx_http_click_tracker_commands[] = {
         {
                 ngx_string("click_tracker"),  // 配置指令
                 NGX_HTTP_MAIN_CONF | NGX_HTTP_SRV_CONF | NGX_HTTP_LOC_CONF | NGX_HTTP_LMT_CONF |
-                NGX_CONF_TAKE1,  // 指令的作用范围
+                NGX_CONF_TAKE12,  // 指令的作用范围
                 ngx_http_click_tracker,  // 配置处理函数
                 NGX_HTTP_LOC_CONF_OFFSET,
                 0,
-//                offsetof(ngx_http_click_tracker_loc_conf_t, db_path), // 修改这里指向新添加的字段,
                 NULL
         },
         ngx_null_command
@@ -71,9 +71,9 @@ static ngx_int_t ngx_http_click_tracker_init(ngx_conf_t *cf) {
 
 //    auto cmcf = ngx_http_conf_get_module_main_conf(cf, ngx_http_core_module);
     // 初始化数据库连接
-    ngx_log_debug(NGX_LOG_DEBUG_HTTP, log, 0, "open sqlite3: %s", (char *)db_path.data);
-    if (sqlite3_open((char *)db_path.data, &db) != SQLITE_OK) {
-        ngx_log_error(NGX_LOG_ERR, log, 0, "init sqlite3 failed %s", (char *)db_path.data);
+    ngx_log_debug(NGX_LOG_DEBUG_HTTP, log, 0, "open sqlite3: %s", (char *)dbPath.data);
+    if (sqlite3_open((char *)dbPath.data, &db) != SQLITE_OK) {
+        ngx_log_error(NGX_LOG_ERR, log, 0, "init sqlite3 failed %s", (char *)dbPath.data);
         return NGX_ERROR;
     }
 
@@ -98,21 +98,31 @@ static ngx_int_t ngx_http_click_tracker_init(ngx_conf_t *cf) {
 
 // 模块退出函数
 static void ngx_http_click_tracker_exit(ngx_cycle_t *cycle) {
+    uriMap.clear();
     if (db != NULL) {
         sqlite3_close(db);
     }
-    if (db_path.data != NULL) {
-        free(db_path.data);      // 释放 data 指针指向的内存
-        db_path.data = NULL;      // 避免悬空指针
+    if (dbPath.data != NULL) {
+        free(dbPath.data);      // 释放 data 指针指向的内存
+        dbPath.data = NULL;      // 避免悬空指针
     }
 }
 
 // 配置处理函数
 static char *ngx_http_click_tracker(ngx_conf_t *cf, ngx_command_t *cmd, void *conf) {
-//    db_path = value[1]; // 获取配置文件中传入的参数
-//    ngx_http_my_module_loc_conf_t *mycf = conf;
     ngx_str_t *value = static_cast<ngx_str_t *>(cf->args->elts);
-    db_path = value[1]; // 读取指令中的参数值
+    dbPath = value[1]; // 读取指令中的参数值
+
+    if (cf->args->nelts == 3) {
+        ngx_str_t url_paths = value[2];
+        // 使用 strtok 分割字符串
+        char *token = std::strtok((char *)url_paths.data, ",");
+        // 轮询输出每个子字符串
+        while (token != nullptr) {
+            uriMap[token] = true;
+            token = std::strtok(nullptr, ","); // 获取下一个分割的子字符串
+        }
+    }
 
     ngx_http_core_loc_conf_t *clcf;
     clcf = (ngx_http_core_loc_conf_t *) ngx_http_conf_get_module_loc_conf(cf, ngx_http_core_module);
@@ -139,17 +149,29 @@ static ngx_int_t ngx_http_click_tracker_request_handler(ngx_http_request_t *r) {
         return NGX_HTTP_INTERNAL_SERVER_ERROR;
     }
 
-    // 绑定 IP 地址
-    sqlite3_bind_text(stmt, 1, (const char *) r->uri.data, -1, SQLITE_STATIC);
-    sqlite3_bind_text(stmt, 2, (const char *) r->connection->addr_text.data, -1, SQLITE_STATIC);
+    char *uri = (char *)malloc(r->uri.len + 1);  // +1 用于 Null 结尾
+    // 使用 memcpy 复制 uri 数据并添加 Null 结尾
+    memcpy(uri, r->uri.data, r->uri.len);
+    uri[r->uri.len] = '\0';  // 手动添加 Null 结尾
 
-    // 执行插入
-    if (sqlite3_step(stmt) != SQLITE_DONE) {
-        ngx_log_error(NGX_LOG_ERR, r->connection->log, 0,
-                      "Failed to execute SQL statement: %s", sqlite3_errmsg(db));
+//    ngx_log_debug(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
+//                  "URIURIURI: %s",  uri);
+
+    if (uriMap.find(uri) != uriMap.end()) {
+        // 绑定 IP 地址
+        sqlite3_bind_text(stmt, 1, uri, -1, SQLITE_STATIC);
+        sqlite3_bind_text(stmt, 2, (const char *) r->connection->addr_text.data, -1, SQLITE_STATIC);
+
+        // 执行插入
+        if (sqlite3_step(stmt) != SQLITE_DONE) {
+            ngx_log_error(NGX_LOG_ERR, r->connection->log, 0,
+                          "Failed to execute SQL statement: %s", sqlite3_errmsg(db));
+        }
     }
+
     // 清理
     sqlite3_finalize(stmt);
+    free(uri);
 
     // 返回静态页面
     ngx_int_t rc = ngx_http_discard_request_body(r);

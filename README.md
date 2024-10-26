@@ -37,6 +37,8 @@ master_process off;
 ```
 #### ubuntu
 ```
+sudo apt install libpcre3 libpcre3-dev
+sudo apt-get install sqlite3 libsqlite3-dev
 ./auto/configure --prefix=/root/services/nginx --add-module=src/mymodules --with-cc-opt="-I/usr/include" --with-ld-opt="-L/../usr/lib/x86_64-linux-gnu/ -lsqlite3"
 ```
 
