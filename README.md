@@ -39,10 +39,12 @@ master_process off;
 ```
 sudo apt install libpcre3 libpcre3-dev
 sudo apt-get install sqlite3 libsqlite3-dev
-./auto/configure --prefix=/root/services/nginx --add-module=src/mymodules --with-cc-opt="-I/usr/include" --with-ld-opt="-L/../usr/lib/x86_64-linux-gnu/ -lsqlite3"
+sudo apt install libssl-dev
+./auto/configure --prefix=/root/services/nginx --with-http_ssl_module --add-module=src/mymodules --with-cc-opt="-I/usr/include" --with-ld-opt="-L/../usr/lib/x86_64-linux-gnu/ -lsqlite3" --with-cc-opt="-static"
+make -j$(nproc)  # 编译用 gcc
+sed -i 's/^CC =\s*cc/CC =\tg++/' objs/Makefile  # 链接用 g++
 ```
 
 ```
 ./auto/configure --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file  --with-threads --add-module=src/mymodules
 ```
-

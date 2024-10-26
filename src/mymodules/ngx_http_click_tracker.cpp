@@ -6,7 +6,9 @@ extern "C" {
 #include <ngx_thread_pool.h>
 }
 #include <iostream>
+#include <cstring>
 #include <map>
+
 // 保存数据库的连接句柄
 sqlite3 *db;
 ngx_str_t dbPath;  // SQLite 数据库文件路径
@@ -116,11 +118,11 @@ static char *ngx_http_click_tracker(ngx_conf_t *cf, ngx_command_t *cmd, void *co
     if (cf->args->nelts == 3) {
         ngx_str_t url_paths = value[2];
         // 使用 strtok 分割字符串
-        char *token = std::strtok((char *)url_paths.data, ",");
+        char *token = strtok((char *)url_paths.data, ",");
         // 轮询输出每个子字符串
         while (token != nullptr) {
             uriMap[token] = true;
-            token = std::strtok(nullptr, ","); // 获取下一个分割的子字符串
+            token = strtok(nullptr, ","); // 获取下一个分割的子字符串
         }
     }
 
