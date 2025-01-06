@@ -136,6 +136,10 @@ set(SOURCE_FILES
         src/mymodules/ngx_http_click_tracker.cpp)
 
 
+
+set(CMAKE_PREFIX_PATH /opt/homebrew/opt/sqlite3)
+find_package(SQLite3 REQUIRED)
+
 SET (Libs
 		/opt/homebrew/Cellar/sqlite/3.47.0/lib/libsqlite3.a
 		pcre2-8
