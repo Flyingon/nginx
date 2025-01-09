@@ -25,3 +25,5 @@ upgrade:
 	kill -QUIT `cat /Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file/logs/nginx.pid.oldbin`
 
 .PHONY:	build install modules upgrade
+
+# 测一下提 pr
