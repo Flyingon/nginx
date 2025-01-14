@@ -139,15 +139,15 @@ set(SOURCE_FILES
 
 set(CMAKE_PREFIX_PATH /opt/homebrew/opt/sqlite3)
 find_package(SQLite3 REQUIRED)
+string(REPLACE ".dylib" ".a" SQLite3_LIBRARIES ${SQLite3_LIBRARIES})
+message("SQLite3: " ${SQLite3_LIBRARIES} ${SQLite3_INCLUDE_DIRS})
 
 SET (Libs
-		/opt/homebrew/Cellar/sqlite/3.47.0/lib/libsqlite3.a
+		${SQLite3_LIBRARIES}
 		pcre2-8
 		z
 )
 # 查找 SQLite
-#find_package(SQLite3 REQUIRED)
-#message("SQLite3 library path: ${SQLITE3_LIBRARIES}")
 add_compile_options(-Wno-c++11-extensions) # 消除使用 c++11 以上特性的警告
 
 add_executable(nginx ${SOURCE_FILES})
