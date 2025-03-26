@@ -154,4 +154,11 @@ add_executable(nginx ${SOURCE_FILES})
 
 target_link_libraries(nginx -L/opt/homebrew/Cellar/pcre2/10.44/lib ${Libs} )
 
-add_executable(listen_mock_499 scripts/listen_mock_499.cpp)
+
+#add_executable(listen_mock_499 scripts/listen_mock_499.cpp)
+
+file(GLOB SUBDIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/scripts/*")
+foreach(CPPFILE ${SUBDIRECTORIES})
+	get_filename_component(EXECUTABLE_NAME ${CPPFILE} NAME_WE)
+	add_executable(${EXECUTABLE_NAME} ${CPPFILE})
+endforeach()
