@@ -1,8 +1,8 @@
 
 ```shell
-./auto/configure --prefix=/Users/zy.yuan/Develop/nginx/cmake-build-debug/nginx-file
+./auto/configure --prefix=/Users/yuanzhaoyi/Develop/nginx/cmake-build-debug/nginx-file --with-threads
 
-mkdir cmake-build-debug/nginx-file
+mkdir -p cmake-build-debug/nginx-file/logs
 
 cp -rf conf cmake-build-debug/nginx-file/.
 cp -rf docs/html cmake-build-debug/nginx-file/.
@@ -25,9 +25,15 @@ include_directories(${PCRE2_INCLUDE_DIRS})
 target_link_libraries(nginx ${PCRE2_LIBRARIES})
 ```
 
+#### 配置
 ```
 daemon off;
 master_process off;
+
+    location /guaguatuweb {
+            alias /Users/yuanzhaoyi/Develop/github.com/Flyingon/GuaguatuWebsite; # 替换为你的单页应用的根目录
+            try_files $uri $uri/ /guaguatuweb/index.html;
+    }
 ```
 
 ### 增加 mymodules
